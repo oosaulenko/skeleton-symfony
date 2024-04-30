@@ -102,6 +102,13 @@ class Post
         return $this;
     }
 
+    public function setCreatedAtDefault(): static
+    {
+        $this->created_at = new \DateTimeImmutable();
+
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updated_at;
@@ -110,6 +117,13 @@ class Post
     public function setUpdatedAt(\DateTimeImmutable $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function setUpdatedAtDefault(): static
+    {
+        $this->updated_at = new \DateTimeImmutable();
 
         return $this;
     }
