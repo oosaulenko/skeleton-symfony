@@ -2,13 +2,13 @@ name: skeleton-symfony
 recipe: symfony
 config:
   webroot: web/public
-  php: '8.3'
+  php: '8.2'
   via: nginx
   database: mysql:5.7
   xdebug: true
 services:
-#  database:
-#    portforward: 63004
+  database:
+    portforward: 63004
   appserver:
     overrides:
       environment:
