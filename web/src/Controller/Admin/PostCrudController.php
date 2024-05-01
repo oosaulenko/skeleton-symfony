@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Field\BlockField;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -24,7 +25,7 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title')->addCssClass('field-title'),
             SlugField::new('slug')->setTargetFieldName('title'),
             AssociationField::new('category'),
             ChoiceField::new('status')->setChoices([
@@ -33,8 +34,7 @@ class PostCrudController extends AbstractCrudController
                 'Draft' => 'draft',
             ]),
 
-
-            TextareaField::new('content'),
+            BlockField::new('content'),
             IdField::new('id')->onlyOnIndex(),
         ];
     }
