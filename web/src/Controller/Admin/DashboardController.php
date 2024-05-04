@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\Page;
 use App\Entity\Post;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -37,8 +38,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         yield MenuItem::section('<hr style="margin: 0;">');
-        yield MenuItem::linkToCrud('Posts', 'fa fa-list', Post::class);
-        yield MenuItem::linkToCrud('Categories', 'fa fa-list', Category::class);
+        yield MenuItem::linkToCrud('Pages', 'fa fa-file-lines', Page::class);
+        yield MenuItem::section('<hr style="margin: 0;">');
+        yield MenuItem::linkToCrud('Posts', 'fa fa-file-lines', Post::class);
+        yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
 
         yield MenuItem::section('<hr style="margin: 0;">');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);

@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Post;
+
 interface PostRepositoryInterface
 {
     /**
-     * @return array
+     * @return Post[]
      */
     public function all(): array;
 

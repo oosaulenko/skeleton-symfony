@@ -3,34 +3,28 @@
 namespace App\Controller\Admin;
 
 use Adeliom\EasyGutenbergBundle\Admin\Field\GutenbergField;
-use App\Entity\Post;
-use App\Field\BlockField;
+use App\Entity\Page;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class PostCrudController extends AbstractCrudController
+class PageCrudController extends AbstractCrudController
 {
-
     public static function getEntityFqcn(): string
     {
-        return Post::class;
+        return Page::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
-            // Add the form theme
-            ->addFormTheme('@EasyGutenberg/form/gutenberg_widget.html.twig')
-            ;
+            ->addFormTheme('@EasyGutenberg/form/gutenberg_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -39,25 +33,28 @@ class PostCrudController extends AbstractCrudController
             FormField::addTab('General'),
             TextField::new('title')
                 ->setLabel(false)
-                ->addCssClass('field-title')->setColumns(12)
-                ->setHtmlAttribute('placeholder', 'Title'),
-            GutenbergField::new('content')->setLabel(false),
+                ->setHtmlAttribute('placeholder', 'Title')
+                ->addCssClass('field-title')
+                ->setColumns(12),
+            GutenbergField::new('content')->hideOnIndex()->setLabel(false),
+
             FormField::addTab('Settings')->setIcon('fa fa-cog'),
             SlugField::new('slug')->setTargetFieldName('title'),
-            AssociationField::new('category'),
+            BooleanField::new('main')
+                ->setLabel('Is main page?')
+                ->setHelp('This page will be the main page of the website.'),
+
             ChoiceField::new('status')->setChoices([
                 'Published' => 'published',
                 'Private' => 'private',
                 'Draft' => 'draft',
             ]),
-
-            IdField::new('id')->onlyOnIndex()->hideOnIndex(),
         ];
     }
 
-    public function createEntity(string $entityFqcn): Post
+    public function createEntity(string $entityFqcn): Page
     {
-        $post = new Post();
+        $post = new Page();
         $post->setCreatedAtDefault();
         $post->setUpdatedAtDefault();
         $post->setUser($this->getUser());
@@ -73,10 +70,21 @@ class PostCrudController extends AbstractCrudController
         $entityManager->flush();
     }
 
-    private function updateEntityInstance(Post $entityInstance): Post
+    private function updateEntityInstance(Page $entityInstance): Page
     {
         $entityInstance->setUpdatedAtDefault();
 
         return $entityInstance;
     }
+
+    /*
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            IdField::new('id'),
+            TextField::new('title'),
+            TextEditorField::new('description'),
+        ];
+    }
+    */
 }

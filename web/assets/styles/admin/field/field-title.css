@@ -1,0 +1,10 @@
+.field-title {
+    .form-widget {
+        input.form-control {
+            font-weight: 700;
+            font-size: 1.2rem;
+            height: 50px;
+            padding: 0 16px;
+        }
+    }
+}

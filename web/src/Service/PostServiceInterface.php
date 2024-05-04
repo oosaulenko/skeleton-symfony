@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use App\Entity\Post;
+
 interface PostServiceInterface
 {
 
     /**
-     * @return array
+     * @return Post[]
      */
     public function all(): array;
 

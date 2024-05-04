@@ -16,4 +16,5 @@ return [
     Symfony\UX\Vue\VueBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
+    Adeliom\EasyGutenbergBundle\EasyGutenbergBundle::class => ['all' => true],
 ];
