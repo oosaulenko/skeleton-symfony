@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\Menu;
 use App\Entity\Page;
 use App\Entity\Post;
 use App\Entity\User;
@@ -42,6 +43,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('<hr style="margin: 0;">');
         yield MenuItem::linkToCrud('Posts', 'fa fa-file-lines', Post::class);
         yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
+
+        yield MenuItem::section('<hr style="margin: 0;">');
+        yield MenuItem::linkToCrud('Menus', 'fa fa-bars-staggered', Menu::class);
+
 
         yield MenuItem::section('<hr style="margin: 0;">');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);

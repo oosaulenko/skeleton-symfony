@@ -25,6 +25,7 @@
     "build": "encore production --progress"
   },
   "dependencies": {
-    "basiclightbox": "^5.0.4"
+    "basiclightbox": "^5.0.4",
+    "sortablejs": "^1.15.2"
   }
 }
