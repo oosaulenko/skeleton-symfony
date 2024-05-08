@@ -45,6 +45,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
 
         yield MenuItem::section('<hr style="margin: 0;">');
+        yield MenuItem::linkToRoute('Medias', 'fa fa-picture-o', 'oosaulenko_media_list');
         yield MenuItem::linkToCrud('Menus', 'fa fa-bars-staggered', Menu::class);
 
 

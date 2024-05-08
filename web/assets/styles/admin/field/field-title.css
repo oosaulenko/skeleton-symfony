@@ -1,4 +1,8 @@
 .field-title {
+    .form-control-label {
+        display: none!important;
+    }
+
     .form-widget {
         input.form-control {
             font-weight: 700;

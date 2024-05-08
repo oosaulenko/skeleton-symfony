@@ -3,18 +3,13 @@
 namespace App\Blocks;
 
 use Adeliom\EasyGutenbergBundle\Blocks\AbstractBlockType;
-use App\Entity\Post;
 use App\Form\Type\DefaultSettingsBlockType;
-use App\Form\Type\LastPostsType;
-use App\Service\PostService;
 use App\Service\PostServiceInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Oosaulenko\MediaBundle\Form\Type\MediaChoiceType;
+use Oosaulenko\MediaBundle\Form\Type\MediaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 
 class HeroType extends AbstractBlockType
 {
@@ -26,6 +21,7 @@ class HeroType extends AbstractBlockType
 
         $builder->add('title', TextType::class, ['label' => 'Title']);
         $builder->add('text', TextEditorType::class, ['label' => 'Text']);
+        $builder->add('image', MediaChoiceType::class, ['label' => false]);
     }
 
     public static function getName(): string
@@ -56,8 +52,18 @@ class HeroType extends AbstractBlockType
     public static function configureAssets(): array
     {
         return [
-            'js' => ['/build/block-hero.js'],
+            'js' => [
+                '/build/block-hero.js'
+            ],
             'css' => ['/build/block-hero.css'],
+        ];
+    }
+
+    public static function configureAdminAssets(): array
+    {
+        return [
+            'js' => ['/bundles/oosaulenkomedia/js/media-bundle.js'],
+            'css' => ['/bundles/oosaulenkomedia/css/manager.css'],
         ];
     }
 

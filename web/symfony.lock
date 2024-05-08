@@ -38,6 +38,9 @@
     "oosaulenko/looly-gutenberg": {
         "version": "1.0.1"
     },
+    "oosaulenko/media-bundle": {
+        "version": "0.0.1"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

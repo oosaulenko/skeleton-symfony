@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97df6dd7e9b3ff5555148f3e37fb6f2d",
+    "content-hash": "a7fe3af847cde8bbeda7666ef45575ae",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1899,6 +1899,42 @@
                 "source": "https://github.com/oosaulenko/looly-gutenberg/tree/1.0.9"
             },
             "time": "2024-05-04T08:04:08+00:00"
+        },
+        {
+            "name": "oosaulenko/media-bundle",
+            "version": "0.0.1",
+            "dist": {
+                "type": "path",
+                "url": "./bundle/oosaulenko/media-bundle",
+                "reference": "884846cdca8fd9b4fc18460c740d9c4869dcead6"
+            },
+            "require": {
+                "symfony/framework-bundle": "^7.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Oosaulenko\\MediaBundle\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleh Osaulenko",
+                    "email": "o.v.osaulenko@gmail.com"
+                }
+            ],
+            "description": "Media bundle for Symfony",
+            "keywords": [
+                "bundle",
+                "media",
+                "symfony"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "oscarotero/html-parser",
