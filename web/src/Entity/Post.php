@@ -44,6 +44,18 @@ class Post
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $data = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $locale = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $relative_locales = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $feature_image = null;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -52,6 +64,13 @@ class Post
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -174,5 +193,66 @@ class Post
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): static
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): static
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getRelativeLocales(): ?array
+    {
+        return $this->relative_locales;
+    }
+
+    public function setRelativeLocales(?array $relative_locales): static
+    {
+        $this->relative_locales = $relative_locales;
+
+        return $this;
+    }
+
+    public function _actions(): array
+    {
+        return [
+            'clone' => null,
+            'view' => 'app_post_single',
+        ];
+    }
+
+    public function getFeatureImage(): ?int
+    {
+        return $this->feature_image;
+    }
+
+    public function setFeatureImage(?int $feature_image): static
+    {
+        $this->feature_image = $feature_image;
+
+        return $this;
+    }
+
+    public function _getSection(): string
+    {
+        return 'post';
     }
 }

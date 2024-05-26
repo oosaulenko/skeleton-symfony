@@ -4,6 +4,8 @@ export function fieldCollectionAction() {
     const fields = document.querySelectorAll('.field-collection');
     if (!fields) return;
 
+    console.log(fields);
+
     fields.forEach((field) => {
         field.classList.add('is-load');
 
@@ -32,7 +34,12 @@ const eaCollectionSortableHandler = function (event) {
     if (!fields) return;
 
     fields.forEach((field) => {
-        const items = field.querySelector('#Menu_items');
+        let items = field.querySelector('div[data-empty-collection]');
+
+        if(!items) {
+            items = field;
+        }
+
         Sortable.create(items, {
             onChange: function (evt) {
                 const collectionItems = items.querySelectorAll('.field-collection-item');

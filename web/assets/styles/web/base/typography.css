@@ -81,3 +81,7 @@ p {
     line-height: 26px;
     margin: 0;
 }
+
+a {
+    color: var(--color-dark);
+}

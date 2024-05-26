@@ -36,6 +36,12 @@ class Category
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'category')]
     private Collection $posts;
 
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $locale = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $relative_locales = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -44,6 +50,13 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function __toString() {
@@ -98,6 +111,13 @@ class Category
         return $this;
     }
 
+    public function setCreatedAtDefault(): static
+    {
+        $this->created_at = new \DateTimeImmutable();
+
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updated_at;
@@ -106,6 +126,13 @@ class Category
     public function setUpdatedAt(\DateTimeImmutable $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function setUpdatedAtDefault(): static
+    {
+        $this->updated_at = new \DateTimeImmutable();
 
         return $this;
     }
@@ -135,5 +162,41 @@ class Category
         }
 
         return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): static
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getRelativeLocales(): ?array
+    {
+        return $this->relative_locales;
+    }
+
+    public function setRelativeLocales(?array $relative_locales): static
+    {
+        $this->relative_locales = $relative_locales;
+
+        return $this;
+    }
+
+    public function _getSection(): string
+    {
+        return 'category';
+    }
+
+    public function _actions(): array
+    {
+        return [
+            'view' => 'app_category_single',
+        ];
     }
 }

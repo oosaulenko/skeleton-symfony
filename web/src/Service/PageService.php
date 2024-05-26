@@ -4,12 +4,14 @@ namespace App\Service;
 
 use App\Entity\Page;
 use App\Repository\PageRepositoryInterface;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 class PageService implements PageServiceInterface
 {
 
     public function __construct(
-        protected PageRepositoryInterface $repository
+        protected PageRepositoryInterface $repository,
+        protected LocaleSwitcher $localeSwitcher
     ) { }
 
     /**
@@ -20,12 +22,26 @@ class PageService implements PageServiceInterface
         return $this->repository->all();
     }
 
+    public function allGroupByLang(): ?array
+    {
+        $pages = $this->repository->all();
+        $pages_langs = [];
+
+        foreach ($pages as $page) {
+            $pages_langs[$page->getLocale()][] = $page;
+        }
+
+        return $pages_langs;
+    }
+
     /**
      * @inheritDoc
      */
     public function findBySlug(string $slug): ?Page
     {
-        return $this->repository->findBySlug($slug);
+        $locale = $this->localeSwitcher->getLocale();
+
+        return $this->repository->findBySlug($slug, $locale);
     }
 
     /**
@@ -39,7 +55,8 @@ class PageService implements PageServiceInterface
     public function findBySlugAndMain(string $slug = null): ?Page
     {
         if ($slug === null) {
-            return $this->repository->findMainPage();
+            $locale = $this->localeSwitcher->getLocale();
+            return $this->repository->findMainPage($locale);
         }
 
         return $this->findBySlug($slug);

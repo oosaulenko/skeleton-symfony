@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
+
 interface CategoryRepositoryInterface
 {
 
@@ -12,9 +14,10 @@ interface CategoryRepositoryInterface
 
     /**
      * @param string $slug
-     * @return mixed
+     * @param string $locale
+     * @return Category|null
      */
-    public function findBySlug(string $slug): mixed;
+    public function findBySlug(string $slug, string $locale = 'en'): ?Category;
 
     /**
      * @param int $id

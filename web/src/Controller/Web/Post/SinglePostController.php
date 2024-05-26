@@ -2,30 +2,32 @@
 
 namespace App\Controller\Web\Post;
 
-use Adeliom\EasyGutenbergBundle\Blocks\Block;
-use Adeliom\EasyGutenbergBundle\Blocks\BlockTypeRegistry;
-use Adeliom\EasyGutenbergBundle\Blocks\ContentRenderer;
-use Adeliom\EasyGutenbergBundle\Requests\BlockRenderRequest;
 use App\Service\PostServiceInterface;
+use App\Utility\DataEntityViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class SinglePostController extends AbstractController
 {
 
-    public function __construct(protected PostServiceInterface $postService) { }
+    public function __construct(
+        protected PostServiceInterface $postService,
+        protected DataEntityViewInterface $dataEntityView,
+    ) { }
 
-    #[Route('/post/{id}', name: 'app_post_single')]
-    public function index(int $id): Response
+    #[Route('/post/{slug}', name: 'app_post_single')]
+    public function index(string $slug): Response
     {
-        $post = $this->postService->findById($id);
+        $post = $this->postService->findBySlug($slug);
 
+        if (!$post) {
+            throw $this->createNotFoundException();
+        }
 
-
-        return $this->render('web/post/single.html.twig', [
-            'post' => $post,
-        ]);
+        return $this->render('web/post/single.html.twig', array_merge(
+            $this->dataEntityView->getMeta($post),
+            ['page' => $post],
+        ));
     }
 }

@@ -3,114 +3,80 @@
 namespace App\Controller\Admin;
 
 use Adeliom\EasyGutenbergBundle\Admin\Field\GutenbergField;
+use App\Admin\Field\DataField;
+use App\Admin\Field\StatusField;
 use App\Entity\Page;
+use App\Service\PageServiceInterface;
+use App\Utility\LanguagesInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Translation\LocaleSwitcher;
 
-class PageCrudController extends AbstractCrudController
+class PageCrudController extends BaseCrudController
 {
+    public function __construct(
+        protected PageServiceInterface $pageService,
+        protected LanguagesInterface   $languages,
+        protected LocaleSwitcher       $localeSwitcher
+    )
+    {
+        parent::__construct($localeSwitcher, $languages);
+    }
+
     public static function getEntityFqcn(): string
     {
         return Page::class;
     }
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return parent::configureCrud($crud)
-            ->addFormTheme('@EasyGutenberg/form/gutenberg_widget.html.twig')
-            ->showEntityActionsInlined()
-            ;
-    }
-
     public function configureFields(string $pageName): iterable
     {
-        return [
-            FormField::addTab('General'),
-            TextField::new('title')
-                ->setLabel('Title')
-                ->setHtmlAttribute('placeholder', 'Title')
-                ->addCssClass('field-title')
-                ->setColumns(12),
-            GutenbergField::new('content')->hideOnIndex()->setLabel(false),
+        $fields = parent::configureFields($pageName);
 
-            FormField::addTab('Settings')->setIcon('fa fa-cog'),
-            SlugField::new('slug')->setTargetFieldName('title')->onlyOnForms(),
-            BooleanField::new('main')
-                ->setLabel('Is main page?')
-                ->setHelp('This page will be the main page of the website.')
-                ->renderAsSwitch(false)
-            ,
+        $fields[0] = FormField::addTab('General');
+        $fields[6] = GutenbergField::new('content')->onlyOnForms()->setLabel(false);
 
-            ChoiceField::new('status')->setChoices([
-                'Published' => 'published',
-                'Private' => 'private',
-                'Draft' => 'draft',
-            ]),
+        $fields[31] = FormField::addTab('Settings')->setIcon('fa fa-cog');
+        $fields[38] = FormField::addColumn('col-lg-4 col-xl-4');
+        $fields[39] = FormField::addFieldset();
+        $fields[42] = BooleanField::new('main')
+            ->setLabel('Is main page?')
+            ->setHelp('This page will be the main page of the website.')
+            ->renderAsSwitch(false);
+        $fields[43] = StatusField::new('status');
 
-            DateField::new('updatedAt')->setLabel('Updated')->onlyOnIndex(),
-            DateField::new('createdAt')->setLabel('Created')->onlyOnIndex(),
-        ];
-    }
+        $fields[49] = FormField::addFieldset();
 
-    public function configureActions(Actions $actions): Actions
-    {
-        $viewDetailsAction = Action::new('view', 'View')
-            ->addCssClass('text-success')
-            ->setIcon('fa fa-eye')
-            ->setHtmlAttributes(['target' => '_blank'])
-            ->linkToRoute('app_page_single', function (Page $entity): array {
-                if($entity->isMain()) return [];
-                return ['slug' => $entity->getSlug()];
-            });
+        $fields[60] = FormField::addColumn('col-lg-8 col-xl-8');
+        $fields[61] = FormField::addFieldset();
+        $fields[62] = DataField::new('data');
 
-        return $actions
-            ->add(Crud::PAGE_INDEX, $viewDetailsAction)
-            ->add(Crud::PAGE_EDIT, $viewDetailsAction);
-    }
-
-    public function createEntity(string $entityFqcn): Page
-    {
-        $post = new Page();
-        $post->setCreatedAtDefault();
-        $post->setUpdatedAtDefault();
-        $post->setUser($this->getUser());
-
-        return $post;
+        return $this->sortByKeyFields($fields);
     }
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        $entityInstance = $this->updateEntityInstance($entityInstance);
-
-        $entityManager->persist($entityInstance);
-        $entityManager->flush();
+        $this->updateMainPage($entityManager, $entityInstance);
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
-    private function updateEntityInstance(Page $entityInstance): Page
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        $entityInstance->setUpdatedAtDefault();
-
-        return $entityInstance;
+        $this->updateMainPage($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    private function updateMainPage(EntityManagerInterface $entityManager, Page $entityInstance): void
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        if(!$entityInstance->isMain()) return;
+
+        $mainPage = $this->pageService->findBySlugAndMain();
+        if($mainPage && $mainPage->getId() !== $entityInstance->getId()) {
+            $mainPage->setMain(false);
+            $entityManager->persist($mainPage);
+        }
     }
-    */
 }

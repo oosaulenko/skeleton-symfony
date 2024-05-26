@@ -13,6 +13,11 @@ interface PageServiceInterface
     public function all(): array;
 
     /**
+     * @return array|null
+     */
+    public function allGroupByLang(): ?array;
+
+    /**
      * @param string $slug
      * @return Page|null
      */

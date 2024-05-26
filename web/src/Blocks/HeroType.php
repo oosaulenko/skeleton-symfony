@@ -55,7 +55,9 @@ class HeroType extends AbstractBlockType
             'js' => [
                 '/build/block-hero.js'
             ],
-            'css' => ['/build/block-hero.css'],
+            'css' => [
+                '/build/block-hero.css'
+            ],
         ];
     }
 
@@ -63,7 +65,10 @@ class HeroType extends AbstractBlockType
     {
         return [
             'js' => ['/bundles/oosaulenkomedia/js/media-bundle.js'],
-            'css' => ['/bundles/oosaulenkomedia/css/manager.css'],
+            'css' => [
+                '/bundles/oosaulenkomedia/css/manager.css',
+                '/build/block-hero.css'
+            ],
         ];
     }
 

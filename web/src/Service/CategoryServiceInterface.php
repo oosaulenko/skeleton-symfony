@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
+
 interface CategoryServiceInterface
 {
 
@@ -12,9 +14,9 @@ interface CategoryServiceInterface
 
     /**
      * @param string $slug
-     * @return mixed
+     * @return Category|null
      */
-    public function findBySlug(string $slug): mixed;
+    public function findBySlug(string $slug): ?Category;
 
     /**
      * @param int $id

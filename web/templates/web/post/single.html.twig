@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ post.title }}{% endblock %}
-
 {% block body %}
-    <h1>{{ post.title }}</h1>
-    {{ easy_gutenberg(post.content) }}
+    <h1>{{ page.title }}</h1>
+
+    {% if(page.content) %}
+        {{ easy_gutenberg(page.content) }}
+    {% endif %}
 
     {{ easy_gutenberg_assets() }}
 {% endblock %}

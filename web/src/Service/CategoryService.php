@@ -2,14 +2,16 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Repository\CategoryRepositoryInterface;
-use App\Service\CategoryServiceInterface;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 class CategoryService implements CategoryServiceInterface
 {
 
     public function __construct(
-        protected CategoryRepositoryInterface $repository
+        protected CategoryRepositoryInterface $repository,
+        protected LocaleSwitcher $localeSwitcher
     ) { }
 
     /**
@@ -23,9 +25,11 @@ class CategoryService implements CategoryServiceInterface
     /**
      * @inheritDoc
      */
-    public function findBySlug(string $slug): mixed
+    public function findBySlug(string $slug): ?Category
     {
-        return $this->repository->findBySlug($slug);
+        $locale = $this->localeSwitcher->getLocale();
+
+        return $this->repository->findBySlug($slug, $locale);
     }
 
     /**

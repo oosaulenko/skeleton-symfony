@@ -24,6 +24,7 @@ Encore
     .addEntry('admin-field-block', './assets/js/admin/field/field-block.js')
     .addEntry('admin', './assets/js/admin/admin.js')
     .addEntry('block-hero', './assets/js/block/block-hero.js')
+    .addEntry('block-list', './assets/js/block/block-list.js')
     .addEntry('block-archive_post', './assets/js/block/block-archive_post.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

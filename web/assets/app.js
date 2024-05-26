@@ -7,3 +7,15 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+
+
+const action = document.querySelector('#actionChangeLocale');
+
+if(action) {
+    action.addEventListener('change', function (e) {
+        e.preventDefault();
+
+        document.cookie = "app_locale=" + e.target.value + ";path=/";
+        window.location.reload();
+    });
+}

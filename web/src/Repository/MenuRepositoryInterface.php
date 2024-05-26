@@ -9,8 +9,9 @@ interface MenuRepositoryInterface
 
     /**
      * @param string $location
+     * @param string $locale
      * @return ?Menu
      */
-    public function getMenu(string $location): ?Menu;
+    public function getMenu(string $location, string $locale = 'en'): ?Menu;
 
 }
