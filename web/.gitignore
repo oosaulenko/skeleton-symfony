@@ -8,6 +8,7 @@
 /public/uploads/
 /var/
 /vendor/
+/bundle
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

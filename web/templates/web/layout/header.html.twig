@@ -9,7 +9,9 @@
             </div>
 
             <div class="header_actions">
-                {{ language_switcher(page) }}
+                {% if page is defined %}
+                    {{ language_switcher(page) }}
+                {% endif %}
             </div>
         </div>
     </div>
