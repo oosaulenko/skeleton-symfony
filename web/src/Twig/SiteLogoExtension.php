@@ -27,7 +27,7 @@ class SiteLogoExtension extends AbstractExtension
     public function view()
     {
         $logoId = $this->optionService->getSetting('siteLogo');
-        if (!$logoId) return '';
+        if (!$logoId || empty($logoId->getValue())) return '';
 
         $logo = $this->mediaService->findOneById($logoId->getValue());
         if (!$logo) return '';

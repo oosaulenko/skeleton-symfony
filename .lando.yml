@@ -8,7 +8,7 @@ config:
   xdebug: true
 services:
   database:
-    portforward: 63004
+    portforward: 63444
   appserver:
     overrides:
       environment:
