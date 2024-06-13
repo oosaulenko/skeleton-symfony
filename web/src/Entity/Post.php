@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\LoolyMedia\Media;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -56,9 +57,16 @@ class Post
     #[ORM\Column(nullable: true)]
     private ?int $feature_image = null;
 
+    /**
+     * @var Collection<int, Media>
+     */
+    #[ORM\ManyToMany(targetEntity: Media::class)]
+    private Collection $media;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->media = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,5 +262,29 @@ class Post
     public function _getSection(): string
     {
         return 'post';
+    }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): static
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media->add($medium);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): static
+    {
+        $this->media->removeElement($medium);
+
+        return $this;
     }
 }
