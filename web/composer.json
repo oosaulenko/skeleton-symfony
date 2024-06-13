@@ -13,7 +13,7 @@
         "doctrine/orm": "^3.1",
         "easycorp/easyadmin-bundle": "^4.10",
         "oosaulenko/looly-gutenberg": "^1.0",
-        "oosaulenko/media-bundle": "^0.0.1",
+        "l00ly/media": "^0.0.1",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.28",
         "symfony/asset": "7.0.*",
@@ -53,7 +53,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./bundle/oosaulenko/media-bundle"
+            "url": "./bundle/l00ly/media"
         }
     ],
     "config": {

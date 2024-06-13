@@ -43,8 +43,8 @@ class DashboardController extends AbstractDashboardController
     {
         return Assets::new()
             ->addWebpackEncoreEntry('admin')
-            ->addCssFile('/bundles/oosaulenkomedia/css/manager.css')
-            ->addJsFile('/bundles/oosaulenkomedia/js/media-bundle.js')
+            ->addCssFile('/bundles/loolymedia/css/manager.css')
+            ->addJsFile('/bundles/loolymedia/js/media-bundle.js')
             ;
     }
 
@@ -59,7 +59,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
 
         yield MenuItem::section('<hr style="margin: 0;">');
-        yield MenuItem::linkToRoute('Medias', 'fa fa-picture-o', 'oosaulenko_media_list');
+        yield MenuItem::linkToRoute('Medias', 'fa fa-picture-o', 'looly_media_list');
         yield MenuItem::linkToCrud('Menus', 'fa fa-bars-staggered', Menu::class);
         yield MenuItem::linkToRoute('Settings', 'fa fa-cog', 'admin_settings')->setPermission('ROLE_ADMIN');
 

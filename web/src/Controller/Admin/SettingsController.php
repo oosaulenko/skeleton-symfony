@@ -6,7 +6,7 @@ use App\DTO\SettingsDTO;
 use App\Entity\LoolyMedia\Media;
 use App\Form\SettingsType;
 use App\Service\OptionServiceInterface;
-use Oosaulenko\MediaBundle\Form\UploadFormType;
+use Looly\Media\Form\UploadFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

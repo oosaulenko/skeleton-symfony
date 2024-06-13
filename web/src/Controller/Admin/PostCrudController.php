@@ -10,7 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use Oosaulenko\MediaBundle\Form\Type\MediaChoiceType;
+use Looly\Media\Form\Type\MediaChoiceType;
 
 class PostCrudController extends BaseCrudController
 {

@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use Oosaulenko\MediaBundle\Form\Type\MediaChoiceType;
+use Looly\Media\Form\Type\MediaChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Utility\LanguagesInterface;
-use Oosaulenko\MediaBundle\Form\Type\MediaChoiceType;
+use Looly\Media\Form\Type\MediaChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

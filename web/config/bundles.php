@@ -17,5 +17,5 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Adeliom\EasyGutenbergBundle\EasyGutenbergBundle::class => ['all' => true],
-    Oosaulenko\MediaBundle\OosaulenkoMediaBundle::class => ['all' => true],
+    Looly\Media\LoolyMediaBundle::class => ['all' => true],
 ];
